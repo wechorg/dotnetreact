@@ -12,9 +12,9 @@ env:
   DOTNET_VERSION: '2.1'               # set this to the dot net version to use
   AZURE_WEBAPP_NAME: 'gbresapp01'
   
-defaults:
-  run:
-    working-directory: ./McD.GRBES
+# defaults:
+#   run:
+#     working-directory: ./McD.GRBES
 
 jobs:
   build:
@@ -37,8 +37,8 @@ jobs:
     - name: Publish
       run: dotnet publish --configuration Release --output grbes_drop --verbosity normal #quiet
     
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: grbes-drop
-        path: ./McD.GRBES/McD.GRBES.Web/grbes_drop
+    # - name: Upload Build Artifacts
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: grbes-drop
+    #     path: ./McD.GRBES/McD.GRBES.Web/grbes_drop
