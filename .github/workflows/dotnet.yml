@@ -1,25 +1,44 @@
-name: .NET
+name: GRBES_STG_DEPLOY_TEST
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+  #push:
+  #  branches: [ master ]
+  #pull_request:
+  #  branches: [ master ]
+
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # path to the web app project, defaults to the repository root
+  DOTNET_VERSION: '2.1'               # set this to the dot net version to use
+  AZURE_WEBAPP_NAME: 'gbresapp01'
+  
+defaults:
+  run:
+    working-directory: ./McD.GRBES
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2019 # cannot use windows-latest, dotnet restore throws errors
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+           
+    - name: Install dependencies
       run: dotnet restore
+      
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build --configuration Release --verbosity normal --no-restore
+         
+    - name: Publish
+      run: dotnet publish --configuration Release --output grbes_drop --verbosity normal #quiet
+    
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: grbes-drop
+        path: ./McD.GRBES/McD.GRBES.Web/grbes_drop
