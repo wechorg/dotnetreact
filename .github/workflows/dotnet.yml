@@ -23,6 +23,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - run: pwd
     - name: checkout another GitHub Repo
       uses: actions/checkout@v2
       with:
