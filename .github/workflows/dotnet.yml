@@ -28,10 +28,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: wechorg/simple_actions
-        path: /simps
+        path: .github/actions/simple
     - name: log working directory
       run: ls
-  
+    - name: check other action
+      run: cd .github/actions/simple
+    - name: check directory
+      run: ls  
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
