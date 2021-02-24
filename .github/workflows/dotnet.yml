@@ -27,6 +27,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: wechorg/simple_actions
+        path: /simps
     - name: log working directory
       run: ls
   
