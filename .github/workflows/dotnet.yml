@@ -32,7 +32,9 @@ jobs:
     - name: log working directory
       run: ls
     - name: check other action
-      run: cd .github/actions/simple
+      run: |
+        cd .github/actions/simple
+        ls
     - name: check directory
       run: ls  
     - name: Setup .NET Core
