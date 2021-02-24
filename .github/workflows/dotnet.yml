@@ -23,8 +23,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: checkout another GitHub Repo
+      uses: actions/checkout@v2
+      with:
+        repository: wechorg/simple_actions
     - name: log working directory
       run: ls
+  
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
